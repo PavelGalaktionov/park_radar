@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "941610858445",
+    "project_id": "parkradar-10552",
+    "storage_bucket": "parkradar-10552.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941610858445:android:add4362d761edbc0bdb684",
+        "android_client_info": {
+          "package_name": "cz.pavelgal.park_radar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2uJ-dG59qWxBaYpuzCll6yl-mYrjClWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

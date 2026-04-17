@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:park_radar/db/spots_db_operations.dart';
+import 'package:park_radar/ui/app_primary_button.dart';
+import 'package:park_radar/utils/utils_functions.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    getTestMessage().then((val) => {
+      printInfo("Zprava: ", val.docs[0].data().toString())
+    });
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -97,10 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+
+      floatingActionButton: AppPrimaryButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        text: 'Increment',
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
