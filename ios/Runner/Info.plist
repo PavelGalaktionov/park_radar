@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Aplikace potřebuje polohu pro zobrazení dat v okolí.</string>
+    <!-- jen pokud chceš i background / always: -->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Aplikace potřebuje nepřetržitý přístup k poloze kvůli ...</string>
+    <key>GMSApiKey</key>
+    <string>AIzaSyDjNP-cacocMfZaj5qnqYZmEMNN8uTxRT4</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

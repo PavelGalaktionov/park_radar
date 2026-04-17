@@ -1,5 +1,11 @@
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:park_radar/db/spots_db_operations.dart';
+import 'package:park_radar/firebase_options.dart';
 import 'package:park_radar/ui/app_primary_button.dart';
 import 'package:park_radar/utils/utils_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,13 +25,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -39,11 +45,18 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initApplication();
+  }
 
   void _incrementCounter() {
     getTestMessage().then((val) => {
@@ -110,5 +123,54 @@ class _MyHomePageState extends State<MyHomePage> {
         text: 'Increment',
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  _initApplication() async {
+    printInfo("INIT", "Zahajena inicializace aplikace.");
+
+    WidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
+    //kontrola internetoveho pripojeni
+    bool isOnline = await hasNetwork();
+    if (!isOnline) {
+      // showErrorDialogExitApplication(navigatorKey.currentContext!,
+      //     navigatorKey.currentContext!.loc.notConnectedErrorTitle, navigatorKey.currentContext!.loc.notConnectedError);
+      return;
+    }
+
+    requestPermission();
+
+    //final status = await Permission.locationWhenInUse.request();
+
+    // SavedUserData savedUserData = getIt<SavedUserData>();
+    //Settings settings = new Settings(persistenceEnabled: true);
+
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+    //FirebaseFirestore.instance.settings = settings;
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+
+    // loadApplicationConfiguration().then((appConfiguration) => {
+    //   reloadConfiguration(appConfiguration),
+    //   loadFirebaseAdminConfiguration().then((adminConfiguration) => {_initFirebaseAdmin(adminConfiguration)})
+    // });
+    //
+    // _auth = AuthService();
+    // getIt<LoginHelper>().setAuthService(_auth!);
+    // _auth?.user.first.then((value) async => {
+    //   loggedInUserId = value?.uid,
+    //   savedUserData.setId(loggedInUserId.toString()),
+    //   inicialized = true,
+    //   setState(() {
+    //     printInfo("INIT", "Aplikace inicializovana! :)");
+    //   }),
+    // });
   }
 }

@@ -11,64 +11,14 @@ const String FOR_TEST_ONLY = "FOR TEST";
 
 const String googleMapsApiKey = "AIzaSyA2JW9ukQ0f4dhPo6kj3V_TlOzjIjK1yUg";//"AIzaSyA0piSyIhEBjToNXl0OKrZNxhQZHujtMUk";
 
-final accountsReference = FirebaseFirestore.instance.collection(FirebaseCollections.accounts.value);
-final addressReference = FirebaseFirestore.instance.collection(FirebaseCollections.addresses.value);
-final configReference = FirebaseFirestore.instance.collection(FirebaseCollections.configuration.value);
-final messengersReference = FirebaseFirestore.instance.collection(FirebaseCollections.messengers.value);
-final messLocationsReference = FirebaseFirestore.instance.collection(FirebaseCollections.messLocations.value);
-final ordersLocationsReference = FirebaseFirestore.instance.collection(FirebaseCollections.ordersLoactions.value);
-final notificationsReference = FirebaseFirestore.instance.collection(FirebaseCollections.notifications.value);
-final ordersReference = FirebaseFirestore.instance.collection(FirebaseCollections.orders.value);
-final paymentsReference = FirebaseFirestore.instance.collection(FirebaseCollections.payments.value);
-final usersReference = FirebaseFirestore.instance.collection(FirebaseCollections.users.value);
-final statisticsReference = FirebaseFirestore.instance.collection(FirebaseCollections.statistics.value);
-final totalStatisticReference = FirebaseFirestore.instance.collection(FirebaseCollections.totalStatistic.value);
-final firstRegDeviceLogReference = FirebaseFirestore.instance.collection(FirebaseCollections.firstRegDeviceLog.value);
-final onlineUsersReference = FirebaseFirestore.instance.collection(FirebaseCollections.onlineUsers.value);
-final cfDataReference = FirebaseFirestore.instance.collection(FirebaseCollections.cfData.value);
-final ageVerificationReference = FirebaseFirestore.instance.collection(FirebaseCollections.ageVerification.value);
-
 final testReference = FirebaseFirestore.instance.collection(FirebaseCollections.test.value);
 
 enum FirebaseCollections {
-  test("test"),
-  orders("orders"),
-  users("users"),
-  addresses("addresses"),
-  accounts("accounts"),
-  payments("payments"),
-  messengers("messengers"),
-  messLocations("messengerLocations"),
-  ordersLoactions("ordersLocations"),
-  configuration("configuration"),
-  notifications("notifications"),
-  statistics("statistics"),
-  totalStatistic("totalStatistic"),
-  firstRegDeviceLog("firstRegDeviceLog"),
-  onlineUsers("onlineUsers"),
-  cfData("cf-data"),
-  ageVerification("ageVerification");
+  test("test");
 
   final String value;
 
   const FirebaseCollections(this.value);
-}
-
-enum OrderState {
-  newOrder("NEW"),
-  changing("CHANGING"),
-  taken('TAKEN'),
-  completing('COMPLETING'),
-  delivering('DELIVERING'),
-  delivered('DELIVERED'),
-  notDelivered('NOTDELIVERED'),//zakaznik nebyl zastizen
-  done('DONE'),
-  expired('EXPIRED'),
-  deleted('DELETED');
-
-  final String value;
-
-  const OrderState(this.value);
 }
 
 enum UserAction {
